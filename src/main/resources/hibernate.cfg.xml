@@ -20,6 +20,8 @@
 
         <mapping class="com.example.hiber.tomany.Model"/>
         <mapping class="com.example.hiber.tomany.Mark"/>
+        <mapping class="com.example.hiber.manytomany.Author"/>
+        <mapping class="com.example.hiber.manytomany.Book"/>
 
     </session-factory>
 </hibernate-configuration>
