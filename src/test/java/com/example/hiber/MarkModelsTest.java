@@ -1,6 +1,7 @@
 package com.example.hiber;
 
 import com.example.hiber.persistence.CRUDStore;
+import com.example.hiber.persistence.SessionStore;
 import com.example.hiber.tomany.Mark;
 import com.example.hiber.tomany.MarkStore;
 import com.example.hiber.tomany.Model;
@@ -10,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-
-public class MarkModelsTest {
+public class MarkModelsTest implements SessionStore {
     private static final CRUDStore<Mark> markStore = new MarkStore();
 
     @Test
@@ -29,7 +29,14 @@ public class MarkModelsTest {
         mercedesBenz.add(tClass);
         markStore.add(mercedesBenz);
 
-        assertThat(mercedesBenz.getModels())
+        Mark fromMark = tx(session -> {
+            Mark mark = session.createQuery("from Mark", Mark.class)
+                    .list()
+                    .get(0);
+            mark.getModels().forEach(n -> log.info(n.getName()));
+            return mark;
+        });
+        assertThat(fromMark.getModels())
                 .hasSize(5)
                 .extracting("name", String.class)
                 .containsExactlyInAnyOrder(

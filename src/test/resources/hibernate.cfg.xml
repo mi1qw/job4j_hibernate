@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
 <hibernate-configuration>
     <session-factory>
-
         <property name="hibernate.connection.url">
             jdbc:hsqldb:mem:todo;sql.enforce_size=false;sql.syntax_pgs=true;DB_CLOSE_DELAY=-1;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DATABASE_TO_UPPER=FALSE;
         </property>
@@ -20,12 +20,14 @@
         <property name="hibernate.use_sql_comments">true</property>
 
         <property name="hibernate.hbm2ddl.auto">create</property>
-        <!-- List of XML mapping files -->
 
+        <!-- List of XML mapping files -->
         <mapping class="com.example.hiber.tomany.Model"/>
         <mapping class="com.example.hiber.tomany.Mark"/>
         <mapping class="com.example.hiber.manytomany.Author"/>
         <mapping class="com.example.hiber.manytomany.Book"/>
+        <mapping class="com.example.hiber.lazyInitialization.Marklz"/>
+        <mapping class="com.example.hiber.lazyInitialization.Modellz"/>
 
     </session-factory>
 </hibernate-configuration>

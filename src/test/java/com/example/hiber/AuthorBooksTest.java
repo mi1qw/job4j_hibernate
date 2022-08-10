@@ -4,25 +4,20 @@ import com.example.hiber.manytomany.Author;
 import com.example.hiber.manytomany.AuthorStore;
 import com.example.hiber.manytomany.Book;
 import com.example.hiber.persistence.CRUDStore;
-import com.example.hiber.persistence.PersistConfig;
+import com.example.hiber.persistence.SessionStore;
 import org.assertj.core.api.InstanceOfAssertFactories;
-import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
-
-import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class AuthorBooksTest {
+public class AuthorBooksTest implements SessionStore {
     private static final CRUDStore<Author> authorStore = new AuthorStore();
-    private static final Function<Function<Session, Object>, Object> tx
-            = PersistConfig.INST.sessionTx();
 
     @Test
     void manyToMany5MarksInModels() {
-        tx.apply(session -> {
+        txv(session -> {
                     Book aBook = new Book("A книга");
                     session.persist(aBook);
                     Book bBook = new Book("B книга");
@@ -37,16 +32,11 @@ public class AuthorBooksTest {
                     vasya.add(bBook);
                     session.persist(ann);
                     session.persist(vasya);
-                    return null;
                 }
         );
 
         Author ann = authorStore.findByName("Аня").get(0);
-        tx.apply(session -> {
-                    session.remove(ann);
-                    return null;
-                }
-        );
+        txv(session -> session.remove(ann));
         assertThat(authorStore.findByName("Вася"))
                 .hasSize(1)
                 .first()
