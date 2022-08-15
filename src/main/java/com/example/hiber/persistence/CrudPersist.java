@@ -55,12 +55,10 @@ public class CrudPersist<T> implements CRUDStore<T>, SessionStore {
     @Override
     public boolean replace(final Long id, final T item) {
         return tx(session -> {
-            try {
                 T oldItem = session.get(aClass, id);
-                int i = oldItem.hashCode();
-            } catch (Exception e) {
-                return false;
-            }
+                if (oldItem == null) {
+                    return false;
+                }
             setIdmethod(id, item);
             session.merge(item);
             return true;
