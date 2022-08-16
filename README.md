@@ -9,3 +9,5 @@
 ## Middle Java на [Job4j.ru](http://Job4j.ru)
 
 ### Упражнения из раздела Hibernate
+
+a
