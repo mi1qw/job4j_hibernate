@@ -23,7 +23,7 @@ public class Author {
         this.name = name;
     }
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Book> books = new HashSet<>();
 
     public void add(final Book book) {

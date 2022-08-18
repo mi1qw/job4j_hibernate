@@ -21,8 +21,8 @@ public class AuthorBooksTest implements SessionStore {
     void manyToManyAuthorAndBooks() {
         Book aBook = new Book("A книга");
         Book bBook = new Book("B книга");
-        bookStore.add(aBook);
-        bookStore.add(bBook);
+//        bookStore.add(aBook);
+//        bookStore.add(bBook);
         Author ann = new Author("Аня");
         ann.add(aBook);
         ann.add(bBook);
