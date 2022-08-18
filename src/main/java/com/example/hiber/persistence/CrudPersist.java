@@ -55,10 +55,10 @@ public class CrudPersist<T> implements CRUDStore<T>, SessionStore {
     @Override
     public boolean replace(final Long id, final T item) {
         return tx(session -> {
-                T oldItem = session.get(aClass, id);
-                if (oldItem == null) {
-                    return false;
-                }
+            T oldItem = session.get(aClass, id);
+            if (oldItem == null) {
+                return false;
+            }
             setIdmethod(id, item);
             session.merge(item);
             return true;
@@ -70,7 +70,7 @@ public class CrudPersist<T> implements CRUDStore<T>, SessionStore {
     public boolean delete(final Long id) {
         try {
             int del = tx(session -> session
-                    .createQuery("delete from " + className + " where id=:id", Integer.class)
+                    .createQuery("delete from " + className + " where id=:id")
                     .setParameter("id", id)
                     .executeUpdate());
             return del != 0;
