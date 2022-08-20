@@ -28,6 +28,9 @@
         <mapping class="com.example.hiber.manytomany.Book"/>
         <mapping class="com.example.hiber.lazyInitialization.Marklz"/>
         <mapping class="com.example.hiber.lazyInitialization.Modellz"/>
+        <mapping class="com.example.hiber.selectfetch.Vacancy"/>
+        <mapping class="com.example.hiber.selectfetch.VacancyPosts"/>
+        <mapping class="com.example.hiber.selectfetch.Candidate"/>
 
     </session-factory>
 </hibernate-configuration>
